@@ -38,8 +38,8 @@ const SignUp = () => {
         mt="30px"
       >
         {/* LEFT PANEL – FORM */}
-        <form onSubmit={handleSubmit}>
           <Splitter.Panel id="a" flex="1">
+          <form onSubmit={handleSubmit}>
           <Card.Root h="100%" border="none" boxShadow="none">
             <Card.Header>
               <Card.Title>Sign up</Card.Title>
@@ -78,12 +78,12 @@ const SignUp = () => {
               </Button>
             </Card.Footer>
           </Card.Root>
+          </form>
         </Splitter.Panel>
-        </form>
         
 
         {/* RIGHT PANEL – IMAGE */}
-        <Splitter.Panel id="b" flex="1" overflow="hidden">
+        <Splitter.Panel id="b" flex="1">
           <Image
             src="/image/blue.png"
             w="100%"
