@@ -7,20 +7,25 @@ import {
   Splitter,
   Stack,
   Image,
+  FieldRequiredIndicator,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { Form } from "react-router-dom";
-
 const SignUp = () => {
 
   const[firstName,setFirstName] = useState('');
   const[lastName,setLastName] = useState('');
   const[email,setEmail] = useState('');
   const[pass,setPass] = useState('');
+  const[submitted,setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
-    console.log("Form submitted");
+    console.log({firstName,lastName,email,pass});
     e.preventDefault();
+    setSubmitted(true);
+
+    if(!firstName || !lastName || !email) return;
+
+    console.log({firstName,lastName,email,pass});
   };
 
   return (
@@ -39,7 +44,7 @@ const SignUp = () => {
       >
         {/* LEFT PANEL – FORM */}
           <Splitter.Panel id="a" flex="1">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} noValidate>
           <Card.Root h="100%" border="none" boxShadow="none">
             <Card.Header>
               <Card.Title>Sign up</Card.Title>
@@ -47,33 +52,53 @@ const SignUp = () => {
                 Fill in the form below to create an account
               </Card.Description>
             </Card.Header>
-
             <Card.Body>
               <Stack gap="4" w="full">
-                <Field.Root>
-                  <Field.Label>First Name</Field.Label>
-                  <Input value={firstName} onChange={(e)=>setFirstName()}/>
+                <Field.Root required>
+                  <Field.Label>First Name
+                    <FieldRequiredIndicator/>
+                  </Field.Label>
+                  <Input 
+                     placeholder="Enter you first name"
+                     value={firstName} 
+                     onChange={(e)=>setFirstName(e.target.value)}/>
+                     {submitted && firstName.trim() === "" && <Field.ErrorText>First Name is Required</Field.ErrorText>}
                 </Field.Root>
 
-                <Field.Root>
-                  <Field.Label>Last Name</Field.Label>
-                  <Input value={lastName} onChange={(e)=>setLastName()}/>
+                <Field.Root required>
+                  <Field.Label>Last Name
+                    <FieldRequiredIndicator/>
+                  </Field.Label>
+                  <Input 
+                     placeholder="Enter your last name"
+                     value={lastName} 
+                     onChange={(e)=>setLastName(e.target.value)}/>
+                     {submitted && lastName.trim()===""&& <Field.ErrorText>Last Name is Required</Field.ErrorText>}
                 </Field.Root>
 
-                <Field.Root>
-                  <Field.Label>Email</Field.Label>
-                  <Input type="email" value={email} onChange={(e)=>setEmail()} />
+                <Field.Root required>
+                  <Field.Label>Email
+                    <FieldRequiredIndicator/>
+                  </Field.Label>
+                  <Input 
+                     type="email" 
+                     value={email} 
+                     onChange={(e)=>setEmail(e.target.value)}/>
+                     {submitted && email.trim()===""&&<Field.ErrorText>Email is Required</Field.ErrorText>}
                 </Field.Root>
 
                 <Field.Root>
                   <Field.Label>Password</Field.Label>
-                  <Input type="password" value={pass} onChange={(e)=>setPass()}/>
+                  <Input 
+                     type="password"
+                     value={pass} 
+                     onChange={(e)=>setPass(e.target.value)}/>
                 </Field.Root>
               </Stack>
             </Card.Body>
 
             <Card.Footer justifyContent="flex-end">
-              <Button colorScheme="blackAlpha" onClick={handleSubmit}>
+              <Button type="submit" colorScheme="blackAlpha">
                 Sign in
               </Button>
             </Card.Footer>
