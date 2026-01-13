@@ -9,9 +9,12 @@ import {
   Image,
   FieldRequiredIndicator,
 } from "@chakra-ui/react";
+import { toaster } from "./components/ui/toaster";
 import { useState } from "react";
-const SignUp = () => {
+import { PasswordInput } from "./components/ui/password-input";
 
+
+const SignUp = () => {
   const[firstName,setFirstName] = useState('');
   const[lastName,setLastName] = useState('');
   const[email,setEmail] = useState('');
@@ -19,21 +22,56 @@ const SignUp = () => {
   const[submitted,setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
-    console.log({firstName,lastName,email,pass});
-    e.preventDefault();
-    setSubmitted(true);
+     e.preventDefault();
+     setSubmitted(true);
 
-    if(!firstName || !lastName || !email) return;
+     if (!firstName || !lastName || !email) {
+     console.log("Field not given");
+     toaster.error({
+      title:"Missing Fields",
+      description:"Please fill in all required fields.",
+      closable: true,
+    }); return; // stop only when invalid
+   }
 
-    console.log({firstName,lastName,email,pass});
-  };
+    if (!passwordRegex.test(pass)) {
+    console.log("Invalid Password");
+     toaster.error({
+      title:"Invalid Password",
+      description:"Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.",
+      closable: true,
+    }); return;
+  }
+     toaster.success({
+      title:"Success",
+      description:"Form submitted successfully!",
+      closable: true,
+     });
+
+  // runs ONLY when form is valid
+     console.log({
+     firstName,
+     lastName,
+     email,
+     pass,
+    });
+   };
+
+   const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const isEmailEmpty = email.trim() === "";
+  const isEmailInvalid = !emailRegex.test(email);
+
 
   return (
     <Center minH="100vh" bg="gray.50">
       <Splitter.Root
         panels={[{ id: "a" }, { id: "b" }]}
         maxW="800px"
-        maxH="500px"
+        maxH="550px"
         w="100%"
         h="100%"
         bg="white"
@@ -54,45 +92,54 @@ const SignUp = () => {
             </Card.Header>
             <Card.Body>
               <Stack gap="4" w="full">
-                <Field.Root required>
+                <Field.Root required invalid={submitted && firstName.trim() === ""}>
                   <Field.Label>First Name
                     <FieldRequiredIndicator/>
                   </Field.Label>
                   <Input 
+                     required
                      placeholder="Enter you first name"
                      value={firstName} 
                      onChange={(e)=>setFirstName(e.target.value)}/>
-                     {submitted && firstName.trim() === "" && <Field.ErrorText>First Name is Required</Field.ErrorText>}
+                     <Field.ErrorText>First Name is Required</Field.ErrorText>
                 </Field.Root>
 
-                <Field.Root required>
+                <Field.Root required invalid={submitted && lastName.trim()===""}>
                   <Field.Label>Last Name
                     <FieldRequiredIndicator/>
                   </Field.Label>
                   <Input 
+                     required
                      placeholder="Enter your last name"
                      value={lastName} 
                      onChange={(e)=>setLastName(e.target.value)}/>
-                     {submitted && lastName.trim()===""&& <Field.ErrorText>Last Name is Required</Field.ErrorText>}
+                     <Field.ErrorText>Last Name is Required</Field.ErrorText>
                 </Field.Root>
 
-                <Field.Root required>
+                <Field.Root required invalid={submitted &&
+                                             (email.trim()==="" || !emailRegex.test(email))}>
                   <Field.Label>Email
                     <FieldRequiredIndicator/>
                   </Field.Label>
                   <Input 
+                     required
                      type="email" 
                      value={email} 
                      onChange={(e)=>setEmail(e.target.value)}/>
-                     {submitted && email.trim()===""&&<Field.ErrorText>Email is Required</Field.ErrorText>}
+                     {submitted && isEmailEmpty && 
+                         <Field.ErrorText>Email is Required</Field.ErrorText>}
+                     {submitted && isEmailInvalid && !isEmailEmpty && 
+                         <Field.ErrorText>Invalid Email</Field.ErrorText>}
                 </Field.Root>
 
-                <Field.Root>
+                <Field.Root required invalid={submitted && !passwordRegex.test(pass)}>
                   <Field.Label>Password</Field.Label>
-                  <Input 
-                     type="password"
+                  <PasswordInput
+                    required
+                    type="password"
                      value={pass} 
                      onChange={(e)=>setPass(e.target.value)}/>
+                     <Field.ErrorText>Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.</Field.ErrorText>
                 </Field.Root>
               </Stack>
             </Card.Body>
