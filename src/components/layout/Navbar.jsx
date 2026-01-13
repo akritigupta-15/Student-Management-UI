@@ -11,18 +11,19 @@ const Navbar = () => {
               px={6}
               align="center"
               justify="space-between"
-              bg="blue.500"
-              color="white" >
+              bg="whiteAlpha.100"
+              color="black" >
             <TimeDate/>
             
             <HStack spacing={4}>
                 <NavLink>
                     <IconButton
                         variant="ghost"
-                        color="white"
+                        color="black"
                         aria-label="Settings"
                         fontSize="20px"
-                        _hover={{ bg: "whiteAlpha.200" }}
+                        bg="gray.100"
+                        _hover={{ bg: "grey.200" }}
                     >
                         <IoSettingsOutline /> 
                     </IconButton>
@@ -30,15 +31,16 @@ const Navbar = () => {
                 <NavLink>
                     <IconButton
                         variant="ghost"
-                        color="white"
+                        color="black"
                         aria-label="Profile"
                         fontSize="20px"
-                        _hover={{ bg: "whiteAlpha.200" }}
+                        bg="gray.100"
+                        _hover={{ bg: "grey.200" }}
                     >
                         <IoPersonSharp />
                     </IconButton>
                 </NavLink>
-                <Text>gupta.akriti022@gmail.com</Text>
+                <Text  fontSize="sm" color="gray.500" >gupta.akriti022@gmail.com</Text>
             </HStack>
         </Flex>
      );

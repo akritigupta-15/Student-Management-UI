@@ -1,4 +1,4 @@
-import { Text, Stack, VStack } from "@chakra-ui/react";
+import { Text, Stack, HStack } from "@chakra-ui/react";
 import useDateTime from "../../hooks/useDateTime";
 const TimeDate = () => {
 
@@ -10,19 +10,32 @@ const TimeDate = () => {
         });
 
     const date = now.toLocaleDateString([], {
-         year: 'numeric', 
          month: 'long', 
-         day: '2-digit' 
+         day: '2-digit', 
+         weekday: 'long'
         });    
     return ( 
-        <VStack align="flex-start" spacing={0}>
-      <Text fontSize="xl" fontWeight="semibold" lineHeight="1">
+         <HStack align="self-end" spacing={3}>
+      {/* Big Time */}
+      <Text
+        fontSize="3xl"
+        fontWeight="semibold"
+        lineHeight="1"
+        color="blackAlpha.800"
+      >
         {time}
       </Text>
-      <Text fontSize="sm" color="whiteAlpha.800">
+
+      {/* Date */}
+      <Text
+        fontSize="sm"
+        fontWeight="medium"
+        color="blackAlpha.800"
+        mt="2px"
+      >
         {date}
       </Text>
-    </VStack>
+    </HStack>
      );
 }
  
