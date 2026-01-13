@@ -1,16 +1,21 @@
-
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignUpPage from "./SignUpPage";
+import Dashboard from "./pages/Dashboard";
 import { Toaster } from "./components/ui/toaster";
 
 const App = () => {
-  return ( 
+  return (
     <BrowserRouter>
-      <Toaster/>   
-       <SignUpPage />
+      {/* Global components */}
+      <Toaster />
+
+      {/* Routes */}
+      <Routes>
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
     </BrowserRouter>
-    
-   );
-}
- 
+  );
+};
+
 export default App;
