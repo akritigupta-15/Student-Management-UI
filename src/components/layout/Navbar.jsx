@@ -1,9 +1,15 @@
-import { Flex, Heading, HStack, Icon, IconButton, Spacer, Text } from "@chakra-ui/react";
+
+import { Flex, HStack, IconButton, Text } from "@chakra-ui/react";
 import { IoPersonSharp, IoSettingsOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import TimeDate from "./TimeDate";
 
+import { ClientOnly, Skeleton } from "@chakra-ui/react"
+import { useColorMode } from "../ui/color-mode";
+import { LuMoon, LuSun } from "react-icons/lu"
+
 const Navbar = () => {
+    const { toggleColorMode, colorMode } = useColorMode()
     return ( 
         
             <Flex
@@ -14,8 +20,15 @@ const Navbar = () => {
               bg="whiteAlpha.100"
               color="black" >
             <TimeDate/>
-            
+                   
             <HStack spacing={4}>
+
+                <ClientOnly fallback={<Skeleton boxSize="8" />}>
+                  <IconButton onClick={toggleColorMode} variant="outline" size="sm">
+                    {colorMode === "light" ? <LuSun /> : <LuMoon />}
+                  </IconButton>
+                </ClientOnly>
+
                 <NavLink>
                     <IconButton
                         variant="ghost"
@@ -23,7 +36,7 @@ const Navbar = () => {
                         aria-label="Settings"
                         fontSize="20px"
                         bg="gray.100"
-                        _hover={{ bg: "grey.200" }}
+                        _hover={{ bg: "gray.200" }}
                     >
                         <IoSettingsOutline /> 
                     </IconButton>
@@ -35,7 +48,7 @@ const Navbar = () => {
                         aria-label="Profile"
                         fontSize="20px"
                         bg="gray.100"
-                        _hover={{ bg: "grey.200" }}
+                        _hover={{ bg: "gray.200" }}
                     >
                         <IoPersonSharp />
                     </IconButton>
