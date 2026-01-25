@@ -1,6 +1,7 @@
 import { Flex, Box } from "@chakra-ui/react";
 import Navbar from "../components/layout/Navbar";
 import Sidebar from "../components/layout/Sidebar";
+import DashboardLayout from "../components/layout/Dashboardlayout";
 
 const Dashboard = () => {
   return (
@@ -10,7 +11,7 @@ const Dashboard = () => {
       <Flex direction="column" flex="1">
         <Navbar />
         <Box p={4}>
-          {/* Dashboard content */}
+          <DashboardLayout/>
         </Box>
       </Flex>
     </Flex>
