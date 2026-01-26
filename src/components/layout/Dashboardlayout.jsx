@@ -5,6 +5,7 @@ import { IoMdPause } from "react-icons/io";
 import { FaPlay } from "react-icons/fa";
 import { IoSettingsSharp } from "react-icons/io5";
 import { VscDebug, VscDebugRestart } from "react-icons/vsc";
+import Calendar from "./Calendar";
 
 export default function DashboardLayout() {
   const TOTAL_TIME = 25 * 60;
@@ -57,22 +58,22 @@ export default function DashboardLayout() {
     </Box>
   )
   return (
-    <Container maxW="container.xl" fluid >
-    <Card.Root
+    <HStack w="100%" spacing={4} align="start" p="4">
+    <Box flex="1">
+    <Box
       bg="gray.50"
       borderRadius="2xl"
       boxShadow="sm"
       p="3"
-      maxW="75%"
     >
-      <Card.Root
+      <Box
         bg="blue.400"
         borderRadius="xl"
         boxShadow="md"
         color="white"
       >
-        <HStack align="center" p="15px">
-        <Box pl="24px" pr="180px">
+        <HStack align="center" p="10px" justify="space-between">
+        <Box pl="24px">
           <VStack align="start" gap={1}>
             <Text>0 tasks due today</Text>
             <Text fontSize="xx-large" whiteSpace="nowrap">Good morning</Text>
@@ -133,7 +134,7 @@ export default function DashboardLayout() {
           </div>
         </Box>
       </HStack>
-    </Card.Root>  
+    </Box>  
       <Flex
         direction="row"
         mt="3"
@@ -164,8 +165,16 @@ export default function DashboardLayout() {
                 value="7 days"
             />
         </Flex>
-    </Card.Root>
-    </Container>
+    </Box>
+    </Box>
+    <Box w="320px" flexShrink={0}>
+      <Calendar/>
+    </Box>
+    
+    </HStack>
+   
+    
+    
     
   );
 }
