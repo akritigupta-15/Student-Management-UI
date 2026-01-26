@@ -1,0 +1,18 @@
+{
+  "details": [
+    {
+      "firstName": "Akriti",
+      "lastName": "Gupta",
+      "email": "gupta.akriti022@gmail",
+      "id": "1",
+      "password":"Akriti@123"
+    },
+    {
+      "firstName": "Ayaansh",
+      "lastName": "Gupta",
+      "email": "gupta.ayaansh022@gmail",
+      "id": "2",
+      "password":"Ayaansh@123"
+    }
+  ]
+}
